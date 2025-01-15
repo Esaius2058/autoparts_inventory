@@ -1,1 +1,1 @@
-# hotel_inventory
+# autoparts_inventory
