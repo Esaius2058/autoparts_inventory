@@ -40,7 +40,7 @@ async function addPart({ partname, description, price, categoryid }) {
     const result = await pool.query(query, values);
     return {
       message: "Part added successfully",
-      partId: result.rows[0].partId,
+      partId: result.rows[0].partid,
       status: 201,
     };
   } catch (err) {
@@ -56,12 +56,12 @@ async function updatePart({
   price,
   categoryid,
 }) {
-  if (!partId) {
-    throw new Error("partId is required to update a part");
+  if (!partid) {
+    throw new Error("partid is required to update a part");
   }
 
   const query =
-    "update parts set partName = $1, description = $2, price = $3, categoryId = $4 where partId = $5 returning *;";
+    "update parts set partname = $1, description = $2, price = $3, categoryid = $4 where partId = $5 returning *;";
   const values = [partname, description, price, categoryid, partid];
 
   try {
@@ -77,10 +77,10 @@ async function deletePart({ partid }) {
   const query = "delete from parts where partid = $1";
   const values = [partid];
   try {
-    await pool.query(query, values);
+    const result = await pool.query(query, values);
     return {
-      message: "Part added successfully",
-      partId: result.rows[0].partId,
+      message: "Part deleted successfully",
+      partId: result.rows[0].partid,
       status: 201,
     };
   } catch (err) {
