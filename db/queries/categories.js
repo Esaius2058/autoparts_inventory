@@ -71,7 +71,7 @@ async function deleteCategory({ categoryid }) {
   const query = "delete from categories where categoryid = $1";
   const values = [categoryid];
   try {
-    await pool.query(query, values);
+    const result = await pool.query(query, values);
     return {
       message: "Category added successfully",
       categoryId: result.rows[0].categoryid,
