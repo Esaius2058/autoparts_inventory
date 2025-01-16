@@ -68,7 +68,7 @@ async function updateStock({ stockid, partid, quantity }) {
 }
 
 async function deleteStock({ stockid }) {
-  const query = "delete from stock where stock = $1";
+  const query = "delete from stock where stockid = $1";
   const values = [stockid];
   try {
     const result = await pool.query(query, values);
