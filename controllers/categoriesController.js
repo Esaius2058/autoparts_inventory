@@ -56,7 +56,7 @@ async function updateCategory(req, res) {
   }
 
   try {
-    const result = db.updatePart({categoryid, categoryname});
+    const result = db.updateCategory({categoryid, categoryname});
 
     return res.status(200).json(result);
   } catch (err) {
@@ -73,11 +73,11 @@ async function deleteCategory(req, res) {
   }
 
   try {
-    const result = await db.deletePart({ categoryid: Number(categoryid) });
+    const result = await db.deleteCategory({ categoryid: Number(categoryid) });
 
     return res.status(200).json(result);
   } catch (err) {
-    console.error("Error while deleting the categoryid", err);
+    console.error("Error while deleting the category", err);
     return res.status(500).json({ error: "Error, internal server error" });
   }
 }
