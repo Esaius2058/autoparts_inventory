@@ -30,6 +30,29 @@ async function getPart(req, res) {
   }
 }
 
+const searchPart = async (req, res, next) => {
+	const searchQuery = req.query.search;
+
+	try{
+		let parts;
+		if (searchQuery) {
+			const searchPattern = `%${searchQuery}%`;
+			const result = await db.query(
+				`select * from parts where partname ILIKE $1`,
+				[searchPattern]
+			);
+			parts = result.rows;
+		} else {
+			const result = await db.query("select * from parts");
+			parts = result.rows;
+		}
+
+		res.render("index", {title: "Parts List", parts});
+	}catch(error){
+		next(error);
+	}
+}
+
 async function addPart(req, res) {
   const { partname, description, price, categoryid } = req.body;
 
