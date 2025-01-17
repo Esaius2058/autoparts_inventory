@@ -63,7 +63,7 @@ async function updateCompInfo(req, res) {
   }
 
   try {
-    const result = db.updateCompatibility({ compatibilityid, make, partid });
+    const result = await db.updateCompatibility({ compatibilityid, make, partid });
 
     return res.status(200).json(result);
   } catch (err) {
