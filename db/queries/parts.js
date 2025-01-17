@@ -61,7 +61,7 @@ async function updatePart({
   }
 
   const query =
-    "update parts set partname = $1, description = $2, price = $3, categoryid = $4 where partId = $5 returning *;";
+    "update parts set partname = $1, description = $2, price = $3, categoryid = $4 where partid = $5 returning *;";
   const values = [partname, description, price, categoryid, partid];
 
   try {
@@ -74,18 +74,26 @@ async function updatePart({
 }
 
 async function deletePart({ partid }) {
-  const query = "delete from parts where partid = $1";
+  const query = "delete from parts where partid = $1 returning partid";
   const values = [partid];
   try {
     const result = await pool.query(query, values);
+
+    if (result.rowCount === 0) {
+      return {
+        message: "Part not found",
+        status: 404,
+      };
+    }
+
     return {
       message: "Part deleted successfully",
       partId: result.rows[0].partid,
-      status: 201,
+      status: 200,
     };
   } catch (err) {
     console.error("Could not delete part:", err);
-    throw new Error("Database error: Could not delete part");
+    throw new Error(`Database error: ${err.message}`);
   }
 }
 
