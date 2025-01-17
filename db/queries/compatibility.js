@@ -50,7 +50,7 @@ async function addCompatibility({ compatibilityid, make, partid }) {
 }
 
 async function updateCompatibility({compatibilityid, make, partid}) {
-  if (!partId) {
+  if (!compatibilityid) {
     throw new Error("compatibilityid is required to update compatibility info");
   }
 
