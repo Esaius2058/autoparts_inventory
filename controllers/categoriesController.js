@@ -56,7 +56,7 @@ async function updateCategory(req, res) {
   }
 
   try {
-    const result = db.updateCategory({categoryid, categoryname});
+    const result = await db.updateCategory({categoryid, categoryname});
 
     return res.status(200).json(result);
   } catch (err) {
