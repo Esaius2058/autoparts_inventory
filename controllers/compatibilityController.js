@@ -43,7 +43,7 @@ async function addCompInfo(req, res) {
   }
 
   try {
-    const result = await db.addCategory({ compatibilityid, make, partid });
+    const result = await db.addCompatibility({ compatibilityid, make, partid });
     return res
       .status(201)
       .json({ message: "Compatibility info added successfully", data: result });
@@ -63,7 +63,7 @@ async function updateCompInfo(req, res) {
   }
 
   try {
-    const result = db.updatePart({ compatibilityid, make, partid });
+    const result = db.updateCompatibility({ compatibilityid, make, partid });
 
     return res.status(200).json(result);
   } catch (err) {
@@ -84,7 +84,7 @@ async function deleteCompInfo(req, res) {
   }
 
   try {
-    const result = await db.deletePart({
+    const result = await db.deleteCompInfo({
       compatibilityid: Number(compatibilityid),
     });
 
