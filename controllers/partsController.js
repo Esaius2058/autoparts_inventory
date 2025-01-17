@@ -1,4 +1,3 @@
-const pool = require("../db/pool");
 const db = require("../db/queries/parts");
 
 async function getParts(req, res) {
@@ -62,7 +61,7 @@ async function updatePart(req, res) {
 	}
 
 	try{
-		const result = db.updatePart({ partid, partname, description, price, categoryid });
+		const result = await db.updatePart({ partid, partname, description, price, categoryid });
 
 		return res.status(200).json(result);
 	}catch(err){
