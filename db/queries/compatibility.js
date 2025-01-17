@@ -12,7 +12,7 @@ async function getAllCompRecords() {
 
 async function getCompatibilityById(id) {
   try {
-    const result = await pool.query("select * from compatibility where partid = $1", [
+    const result = await pool.query("select * from compatibility where compatibilityid = $1", [
       id,
     ]);
 
@@ -51,10 +51,10 @@ async function addCompatibility({ compatibilityid, make, partid }) {
 
 async function updateCompatibility({compatibilityid, make, partid}) {
   if (!partId) {
-    throw new Error("categoryid is required to update a category");
+    throw new Error("compatibilityid is required to update compatibility info");
   }
 
-  const query = "update categories set make= $1, partid = $2 where compatibilityid = $3 returning *;";
+  const query = "update compatibility set make= $1, partid = $2 where compatibilityid = $3 returning *;";
   const values = [compatibilityid, make, partid];
 
   try {
@@ -67,7 +67,7 @@ async function updateCompatibility({compatibilityid, make, partid}) {
 }
 
 async function deleteCompInfo({ compatibilityid }) {
-  const query = "delete from categories where categoryid = $1";
+  const query = "delete from compatibility where compatibilityid = $1";
   const values = [compatibilityid];
   try {
     const result = await pool.query(query, values);
