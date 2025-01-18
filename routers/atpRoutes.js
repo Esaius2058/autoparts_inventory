@@ -6,6 +6,9 @@ const categoriesController = require("../controllers/categoriesController");
 const compatibilityController = require("../controllers/compatibilityController");
 const suppliersController = require("../controllers/suppliersController");
 
+// Test database connection
+atpRouter.get("/test-db", partsController.testDatabaseConnection);
+
 // Parts
 atpRouter.get("/", partsController.getParts); //Retrieve all parts
 atpRouter.get("/parts/:id", partsController.getPart); //Retrieve a specific part by ID
@@ -33,7 +36,7 @@ atpRouter.get("/stock", stockController.getStockInfo);
 atpRouter.get("/stock/:id", stockController.getStockById);
 atpRouter.post("/stock/new", stockController.addStockInfo);
 atpRouter.put("/stock/:id", stockController.updateStock);
-atpRouter.delete("/stocky/:id", stockController.deleteStock);
+atpRouter.delete("/stock/:id", stockController.deleteStock);
 
 //Suppliers
 atpRouter.get("/suppliers", suppliersController.getSuppliers);
