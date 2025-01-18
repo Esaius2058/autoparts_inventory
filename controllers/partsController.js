@@ -1,5 +1,21 @@
 const db = require("../db/queries/parts");
 
+async function testdBConnection(req, res){
+  try{
+    const result = await db.query('SELECT NOW()');
+    res.join({
+      message: "Connected to the database!",
+      time: result.rows[0].now
+    });
+  }catch(err){
+    console.error("Database connection error: ", err);
+    res.status(500).json({
+      error: "Database connection error",
+      details: err.message,
+    });
+  }
+}
+
 async function getParts(req, res) {
   try {
     const parts = await db.getAllParts();
@@ -113,7 +129,9 @@ async function deletePart(req, res){
 module.exports = {
   getParts,
   getPart,
+  searchPart,
   addPart,
 	updatePart,
-	deletePart
+	deletePart,
+  testdBConnection
 };
