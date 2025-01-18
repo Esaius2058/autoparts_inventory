@@ -7,7 +7,7 @@ const compatibilityController = require("../controllers/compatibilityController"
 const suppliersController = require("../controllers/suppliersController");
 
 // Test database connection
-atpRouter.get("/test-db", partsController.testDatabaseConnection);
+atpRouter.get("/test-db", partsController.testdBConnection);
 
 // Parts
 atpRouter.get("/", partsController.getParts); //Retrieve all parts
