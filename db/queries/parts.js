@@ -22,7 +22,7 @@ async function getPartById(id) {
 
     return result.rows[0];
   } catch (err) {
-    console.err("Error fetching part by Id:", err);
+    console.error("Error fetching part by Id:", err);
     return { err: "An error occurred while fetching the part", status: 500 };
   }
 }
