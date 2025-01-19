@@ -24,9 +24,9 @@ async function getCategory(req, res) {
     return res.status(200).json(result);
   } catch (err) {
     console.error("Unexpected error in controller:", err);
-    return res
-      .status(500)
-      .json({ error: "An unexpected error occured while fetching the category" });
+    return res.status(500).json({
+      error: "An unexpected error occured while fetching the category",
+    });
   }
 }
 
@@ -38,7 +38,7 @@ async function addCategory(req, res) {
   }
 
   try {
-    const result = await db.addCategory({categoryid, categoryname});
+    const result = await db.addCategory({ categoryid, categoryname });
     return res
       .status(201)
       .json({ message: "Category added successfully", data: result });
@@ -49,14 +49,14 @@ async function addCategory(req, res) {
 }
 
 async function updateCategory(req, res) {
-  const {categoryid, categoryname} = req.body;
+  const { categoryid, categoryname } = req.body;
 
   if (!categoryid) {
     return res.status(400).json({ error: "Error fetching the categoryid" });
   }
 
   try {
-    const result = await db.updateCategory({categoryid, categoryname});
+    const result = await db.updateCategory( {categoryid, categoryname} );
 
     return res.status(200).json(result);
   } catch (err) {
@@ -66,7 +66,7 @@ async function updateCategory(req, res) {
 }
 
 async function deleteCategory(req, res) {
-  const { categoryid } = req.params;
+  const { id: categoryid } = req.params;
 
   if (!categoryid || isNaN(Number(categoryid))) {
     return res.status(400).json({ error: "Error fetching the categoryid" });
