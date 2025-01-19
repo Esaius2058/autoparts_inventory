@@ -50,7 +50,7 @@ async function addCategory({ categoryid, categoryname }) {
 }
 
 async function updateCategory({categoryid, categoryname}) {
-  if (!partId) {
+  if (!categoryid) {
     throw new Error("categoryid is required to update a category");
   }
 
@@ -68,7 +68,15 @@ async function updateCategory({categoryid, categoryname}) {
 }
 
 async function deleteCategory({ categoryid }) {
-  const query = "delete from categories where categoryid = $1";
+  const query = `alter table parts 
+    drop constraint parts_categoryid_fkey;
+    
+    alter table parts
+    add constaint parts_categoryid_fkey
+    foreign key (categoryid)
+    references categories(categoryid)
+    on delete cascade;
+    `;
   const values = [categoryid];
   try {
     const result = await pool.query(query, values);
